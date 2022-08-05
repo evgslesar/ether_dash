@@ -16,8 +16,10 @@ df = pd.read_sql('''SELECT date as 'Date', name as 'Name',
              "market_data.total_volume.btc" as 'Volume BTC',
              "market_data.total_volume.eth" as 'Volume ETH',
              "public_interest_stats.alexa_rank" as 'Alexa Rank'
-             FROM ether_data ORDER BY "index" DESC''', conn, index_col=None)
+             FROM ether_data''', conn, index_col=None)
 conn.close()
+
+df = df.iloc[::-1]
 
 df['Date'] = pd.to_datetime(df['Date'], format='%d-%m-%Y').dt.date
 
